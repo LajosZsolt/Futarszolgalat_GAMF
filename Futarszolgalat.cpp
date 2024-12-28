@@ -87,12 +87,24 @@ class Feldolgoz
             return fuvarok[maxSorszamIndex].tavolsag;
         }
 
+        void hetSzabadNapjai() {
+            // végig megyünk a napokon
+            for (int n = 1; n<=7; n++){
+                // Eldöntés tételével vizsgáljuk, hogy szabad nap volt a bizonyos nap
+                int i=0;
+                while(i<db && fuvarok[i].nap != n) i++;
+                // itt ez esetben pont azt kell kírni, ha nincs elem a tömbben
+                if (i==db) {
+                    cout << n <<". - "<< napok[n]<< " ";
+                }
+            }
+
+        }
         int legtobbFuvarNap() {
             szamolNapokat();
-
+            // minimumnak vesszük az első napot
             int maxIndex = 1;
             for (int i = 2; i<=7; i++){
-                //cout << i << ". nap: " << naponkenti_osszeg[i]<<endl;
                 if (naponkentiDb[i]>naponkentiDb[maxIndex]) maxIndex = i;
             }
             return maxIndex;
@@ -143,13 +155,17 @@ int main()
 
     // 2. feladat
     cout << "2. feladat: " << endl;
-    cout << " Het masodik fuvar kilometerben: " << fd.hetMasodikFuvarKm() << endl;
+    cout << " Het masodik utja kilometerben: " << fd.hetMasodikFuvarKm() << endl;
 
     // 3. feladat
     cout << "3. feladat: " << endl;
     cout << " Het utolso fuvar kilometerben: " << fd.hetUtolsoFuvarKm() << endl;
 
     // 4. feladat
+    cout << "4. feladat: " << endl;
+    cout << " Het szabadnapjai: ";
+    fd.hetSzabadNapjai();
+    cout << endl;
 
     // 5. feladat
     cout << "5. feladat: " << endl;
