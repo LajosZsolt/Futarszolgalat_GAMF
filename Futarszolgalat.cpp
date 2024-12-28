@@ -34,6 +34,25 @@ class Feldolgoz
             }
         }
 
+        static int calcErtek(Fuvar fuvar)
+        {
+            return fuvar.nap * 100 + fuvar.sorsz;
+        }
+
+        void rendez()
+        {
+            for (int i = 0; i < db; i++)
+            {
+                for (int j = i+1; j < db; j++)
+                {
+                    if (calcErtek(fuvarok[j]) < calcErtek(fuvarok[i])) {
+                        Fuvar seged = fuvarok[j];
+                        fuvarok[j] = fuvarok[i];
+                        fuvarok[i] = seged;
+                    }
+                }                
+            }            
+        }
     public:
         Feldolgoz(); 
         void beolvas() {
@@ -54,7 +73,7 @@ class Feldolgoz
             int i1;
             int i2;
             for (int i = 1; i<db; i++){
-                int ertek = fuvarok[i].nap * 100 + fuvarok[i].sorsz;
+                int ertek = calcErtek(fuvarok[i]);
                 if (ertek < ertek1) {
                     i1 = i;
                     ertek1 = ertek;
@@ -62,7 +81,7 @@ class Feldolgoz
             }
             for (int i = 1; i<db; i++){
                 if (i1 != i ) {
-                    int ertek = fuvarok[i].nap * 100 + fuvarok[i].sorsz;
+                    int ertek = calcErtek(fuvarok[i]);
                     if (ertek < ertek2) {
                         i2 = i;
                         ertek2 = ertek;
@@ -125,13 +144,28 @@ class Feldolgoz
         string getNapStr(int i) {
             return napok[i];
         }
-        int szamolOsszesen() {
+
+        int szamolOsszesenKiirReszosszeg()
+        {
+            rendez();
             int fiz = 0;
-            for (int i = 0; i<db; i++){
-                fiz += szamolTavAlapjan(fuvarok[i].tavolsag);
+            ofstream ki("befizetes.txt");
+            if (ki.fail())
+            {
+                cout << "Fajl nem nyithato meg";
+                exit(1);
             }
+
+            for (int i = 0; i < db; i++)
+            {
+                int reszFiz = szamolTavAlapjan(fuvarok[i].tavolsag);
+                ki << "  " << fuvarok[i].nap << ".nap " << fuvarok[i].sorsz << ".út: " << reszFiz << " Ft" << endl;
+                fiz += reszFiz;
+            }
+            cout << "  Sikeresen elkeszult fajl: befizetes.txt" << endl;
             return fiz;
         }
+
         int szamolTavAlapjan(int tav)  {
             int fiz = 0;
             if (tav < 1) fiz = 0;
@@ -142,6 +176,7 @@ class Feldolgoz
             else if (tav < 31) fiz = 2000;
             return fiz;
         }
+
         static void print( Fuvar f)
         {
             cout << "Nap: "<< f.nap << " ssz.: " << f.sorsz << " tav: " << f.tavolsag << endl;
@@ -198,8 +233,10 @@ int main()
     cout << " Jarandosag: " <<  fd.szamolTavAlapjan(tav) << endl;
 
     // 8. feladat
+    cout << "8. feladat: " << endl;
+    int osszesen = fd.szamolOsszesenKiirReszosszeg();
 
     // 9. feladat
     cout << "9. feladat: " << endl;
-    cout << " Heti jarandosag: " <<  fd.szamolOsszesen() << endl;
+    cout << " Heti jarandosag: " <<  osszesen << endl;
 }
