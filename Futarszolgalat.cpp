@@ -17,6 +17,7 @@ class Feldolgoz
 
         string napok [8];
         int naponkentiDb[8];
+        int naponkentiKm[8];
 
 
         void szamolNapokat()
@@ -24,10 +25,12 @@ class Feldolgoz
             // ki 0-azuk a napokat
             for (int i = 1; i<=7; i++){
                 naponkentiDb[i] = 0;
+                naponkentiKm[i] = 0;
             }
          
             for (int i = 0; i<db; i++){
                 naponkentiDb[fuvarok[i].nap] ++;
+                naponkentiKm[fuvarok[i].nap] += fuvarok[i].tavolsag;
             }
         }
 
@@ -110,6 +113,15 @@ class Feldolgoz
             return maxIndex;
         }
 
+        void osszegezNaponkent()
+        {
+            // végig megyünk a napokon
+            for (int n = 1; n <= 7; n++)
+            {
+                cout <<"  "<< n << ". nap: " << naponkentiKm[n] << endl;
+            }
+        }
+
         string getNapStr(int i) {
             return napok[i];
         }
@@ -173,6 +185,10 @@ int main()
     cout << " Het melyik napjan volt a legtobb fuvar: " << max << ". nap, "  << fd.getNapStr(max) << endl;
 
     // 6. feladat
+    cout << "6. feladat: " << endl;
+    cout << " Egyes napkokon megtett kilometer: "<<endl;
+    fd.osszegezNaponkent();
+    cout << endl;
 
     // 7. feladat
     cout << "7. feladat: " << endl;
