@@ -45,6 +45,30 @@ class Feldolgoz
             db = i;
         }
 
+        int hetMasodikFuvarKm() {
+            int ertek1 = 10000;
+            int ertek2 = 10000;
+            int i1;
+            int i2;
+            for (int i = 1; i<db; i++){
+                int ertek = fuvarok[i].nap * 100 + fuvarok[i].sorsz;
+                if (ertek < ertek1) {
+                    i1 = i;
+                    ertek1 = ertek;
+                }
+            }
+            for (int i = 1; i<db; i++){
+                if (i1 != i ) {
+                    int ertek = fuvarok[i].nap * 100 + fuvarok[i].sorsz;
+                    if (ertek < ertek2) {
+                        i2 = i;
+                        ertek2 = ertek;
+                    }
+                }
+            }
+            return fuvarok[i2].tavolsag;
+        }
+
         int hetUtolsoFuvarKm() {
             int maxNap = 0;
             int maxSorszamIndex = 0;
@@ -118,6 +142,8 @@ int main()
     fd.beolvas();
 
     // 2. feladat
+    cout << "2. feladat: " << endl;
+    cout << " Het masodik fuvar kilometerben: " << fd.hetMasodikFuvarKm() << endl;
 
     // 3. feladat
     cout << "3. feladat: " << endl;
