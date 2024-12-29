@@ -70,6 +70,7 @@ class Feldolgoz
 
         // 2. feladat
         int hetMasodikFuvarKm() {
+            // kiinduló értéket felvesszük olyan nagyra, melyet nem érhet el 
             int ertek1 = 10000;
             int ertek2 = 10000;
             int i1;
@@ -93,6 +94,7 @@ class Feldolgoz
             return fuvarok[i2].tavolsag;
         }
 
+        // 3. feladat
         int hetUtolsoFuvarKm() {
             int maxNap = 0;
             int maxSorszamIndex = 0;
@@ -111,6 +113,7 @@ class Feldolgoz
             return fuvarok[maxSorszamIndex].tavolsag;
         }
 
+        // 4. feladat
         void hetSzabadNapjai() {
             // végig megyünk a napokon
             for (int n = 1; n<=7; n++){
@@ -124,6 +127,8 @@ class Feldolgoz
             }
 
         }
+
+        // 5. feladat
         int legtobbFuvarNap() {
             szamolNapokat();
             // minimumnak vesszük az első napot
@@ -134,6 +139,7 @@ class Feldolgoz
             return maxIndex;
         }
 
+        // 6. feladat
         void osszegezNaponkent()
         {
             // végig megyünk a napokon
@@ -147,6 +153,7 @@ class Feldolgoz
             return napok[i];
         }
 
+        // 8-9. feladat
         int szamolOsszesenKiirReszosszeg()
         {
             rendez();
