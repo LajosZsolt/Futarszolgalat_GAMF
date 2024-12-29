@@ -55,6 +55,7 @@ class Feldolgoz
         }
     public:
         Feldolgoz(); 
+        // 1. feladat
         void beolvas() {
             ifstream be("utak.txt");
             if (be.fail()) { cout << "Fajl nem nyithato meg"; exit(1); }
@@ -67,19 +68,20 @@ class Feldolgoz
             db = i;
         }
 
+        // 2. feladat
         int hetMasodikFuvarKm() {
             int ertek1 = 10000;
             int ertek2 = 10000;
             int i1;
             int i2;
-            for (int i = 1; i<db; i++){
+            for (int i = 0; i<db; i++){
                 int ertek = calcErtek(fuvarok[i]);
                 if (ertek < ertek1) {
                     i1 = i;
                     ertek1 = ertek;
                 }
             }
-            for (int i = 1; i<db; i++){
+            for (int i = 0; i<db; i++){
                 if (i1 != i ) {
                     int ertek = calcErtek(fuvarok[i]);
                     if (ertek < ertek2) {
